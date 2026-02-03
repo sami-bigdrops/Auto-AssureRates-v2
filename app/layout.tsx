@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins, Roboto } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import TrackingHandler from "@/components/TrackingHandler";
 
 const poppins = Poppins({
@@ -36,6 +38,8 @@ export default function RootLayout({
           <TrackingHandler />
           {children}
         </main>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

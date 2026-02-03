@@ -3,11 +3,13 @@
 import { useState, useCallback, useEffect } from "react";
 import { MapPin, CircleCheck } from "lucide-react";
 import Image from "next/image";
+import { track } from '@vercel/analytics/react'
 
 export default function Hero() {
     const [zipCode, setZipCode] = useState("");
     const [cityName, setCityName] = useState("");
     const [isLoadingLocation, setIsLoadingLocation] = useState(false);
+    const [state, setState] = useState('')
     const isZipValid = /^\d{5}$/.test(zipCode);
 
       // Function to fetch user location using server-side IP detection (same as LeadProsper)
@@ -31,15 +33,18 @@ export default function Hero() {
       if (data.city && data.zipCode) {
         setCityName(data.city)
         setZipCode(data.zipCode)
+        setState(data.state)
       } else {
         // Keep empty if location not available
         setCityName('')
         setZipCode('')
+        setState('')
       }
     } catch {
       // Keep empty on error
       setCityName('')
       setZipCode('')
+      setState('')
     } finally {
       setIsLoadingLocation(false)
     }
@@ -100,6 +105,8 @@ export default function Hero() {
     if (utmS1) params.set('c1', utmS1)
 
     const redirectUrl = `${baseUrl}/form?${params.toString()}`
+
+    track('zip_submission', { state, zip_code: zipCode })
     
     // Redirect to the quote page
     window.location.href = redirectUrl
