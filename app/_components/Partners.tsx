@@ -2,8 +2,8 @@ import Image from "next/image";
 
 const partners = [
     {
-        name: "American Family Insurance",
-        image: "/american-family-insurance.svg"
+        name: "Nationwide",
+        image: "/nationwide.svg"
     },
     {
         name: "Allstate",
