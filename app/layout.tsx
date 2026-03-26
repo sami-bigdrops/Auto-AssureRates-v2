@@ -31,12 +31,25 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const isMaintenanceMode = true;
+
   return (
     <html lang="en">
       <body className={`${poppins.variable} ${roboto.variable} antialiased overflow-x-hidden overflow-y-auto`}>
         <main className="w-full mx-auto">
           <TrackingHandler />
-          {children}
+          {isMaintenanceMode ? (
+            <div className="min-h-screen w-full flex items-center justify-center px-6 text-center">
+              <div>
+                <h1 className="text-4xl font-bold">Under Maintenance</h1>
+                <p className="mt-4 text-base opacity-80">
+                  We are currently performing scheduled maintenance. Please check back soon.
+                </p>
+              </div>
+            </div>
+          ) : (
+            children
+          )}
         </main>
         <Analytics />
         <SpeedInsights />
